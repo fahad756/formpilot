@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FormPilot</title>
+  <link rel="stylesheet" href="sidebar.css" />
+</head>
+<body>
+  <div id="fp-sidebar">
+    <!-- Header -->
+    <header id="fp-header">
+      <div class="fp-brand">
+        <svg class="fp-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span class="fp-brand-name">FormPilot</span>
+      </div>
+      <button id="fp-close-btn" aria-label="Close panel" title="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main content area — states are swapped by JS -->
+    <main id="fp-content">
+
+      <!-- STATE: loading -->
+      <div id="fp-state-loading" class="fp-state">
+        <div class="fp-spinner"></div>
+        <p class="fp-state-text">Connecting to FormPilot…</p>
+      </div>
+
+      <!-- STATE: unauthenticated -->
+      <div id="fp-state-auth" class="fp-state fp-hidden">
+        <div class="fp-icon-circle fp-icon-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <p class="fp-state-title">Sign in required</p>
+        <p class="fp-state-sub">Open the FormPilot dashboard to sign in with Google, then come back here.</p>
+        <button id="fp-open-dashboard-btn" class="fp-btn fp-btn-primary">Open Dashboard</button>
+      </div>
+
+      <!-- STATE: form detected — ready to fill -->
+      <div id="fp-state-ready" class="fp-state fp-hidden">
+        <!-- Profile completion nudge -->
+        <div id="fp-completion-bar" class="fp-completion fp-hidden">
+          <div class="fp-completion-label">
+            <span>Profile completeness</span>
+            <span id="fp-completion-pct">—%</span>
+          </div>
+          <div class="fp-completion-track">
+            <div id="fp-completion-fill" class="fp-completion-fill"></div>
+          </div>
+        </div>
+
+        <!-- Resume selector -->
+        <section class="fp-section">
+          <h3 class="fp-section-title">Active Resume</h3>
+          <div id="fp-resume-list" class="fp-resume-list">
+            <p class="fp-muted-sm">Loading resumes…</p>
+          </div>
+        </section>
+
+        <!-- Fill action -->
+        <section class="fp-section">
+          <h3 class="fp-section-title">Detected Fields</h3>
+          <p id="fp-field-count" class="fp-muted-sm">Scanning…</p>
+          <button id="fp-fill-btn" class="fp-btn fp-btn-primary fp-btn-full" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Autofill This Form
+          </button>
+        </section>
+
+        <!-- Result feedback -->
+        <div id="fp-fill-result" class="fp-result fp-hidden">
+          <svg class="fp-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <p id="fp-result-text" class="fp-result-text"></p>
+        </div>
+      </div>
+
+      <!-- STATE: no form detected -->
+      <div id="fp-state-no-form" class="fp-state fp-hidden">
+        <div class="fp-icon-circle fp-icon-muted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/>
+          </svg>
+        </div>
+        <p class="fp-state-title">Form Not Supported on This Page</p>
+        <p class="fp-state-sub">
+          FormPilot couldn't detect a job application form here. Try the deep scan to look harder.
+        </p>
+        <button id="fp-deep-scan-btn" class="fp-btn fp-btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Run Deep Scan
+        </button>
+        <!-- Deep scan loading -->
+        <div id="fp-scanning" class="fp-hidden" style="margin-top:16px">
+          <div class="fp-spinner fp-spinner-sm"></div>
+          <p class="fp-muted-sm" style="margin-top:8px">AI is parsing the page structure…</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>

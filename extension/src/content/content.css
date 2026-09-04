@@ -1,0 +1,22 @@
+/*
+ * FormPilot content script styles.
+ *
+ * Scoped under #formpilot-* IDs to avoid colliding with host page styles.
+ * The trigger button is styled inline in trigger-ui.ts for portability.
+ * This file only covers the sidebar iframe shell sizing.
+ */
+
+/* Prevent the sidebar iframe from interfering with host page layout */
+#formpilot-sidebar {
+  all: initial !important;
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 360px !important;
+  height: 100vh !important;
+  z-index: 2147483647 !important;
+  border: none !important;
+  border-left: 1px solid #e2e8f0 !important;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12) !important;
+  background: #fff !important;
+}
